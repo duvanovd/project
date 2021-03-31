@@ -5,8 +5,79 @@
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>WEB</title>
+	 
+	 <style>
+		 
+.form{
+  width: 300px;
+  background: red;
+}
+body{
+  display:flex;
+  justify-content: center
+}
+.button{
+  width: max-content;
+  margin:auto
+}
+	 
+	 </style>
  </head>
  <body>
+	 
+	 
+	 
+<form data-test="0" class="form">
+  <p id="quest">Вы готовы начать опрос?</p>
+  <p>
+    <input class="col" type="radio" id="contactChoice1"
+     name="contact" value="phone"><span>Да</span>
+  </p>
+  <p>
+      <input class="col" type="radio" id="contactChoice2"
+     name="contact" value="phone"><span>Нет</span>
+  </p>
+<p>
+</p>
+ <div class="button">Ответить</div>
+</form>
+	 
+	 
+<script>
+	 var arr = [
+  "Вы готовы к переезду",
+  "Вы хотите играть в игры",
+  "Вы хотите играть в Нарды",
+  "Вы хотите играть в Футбол",
+]
+var otveti = [
+  
+]
+document.getElementsByClassName("button")[0].addEventListener("click", function(){
+  for(let i = 0; i<document.getElementsByClassName("col").length; i++){
+    document.getElementsByClassName("col")[i].checked? otveti.push(i) : ";"
+  }
+  
+ if(arr[parseInt(document.getElementsByClassName("form")[0].getAttribute("data-test"))] != undefined){
+     document.getElementById("quest").innerText =   arr[parseInt(document.getElementsByClassName("form")[0].getAttribute("data-test"))] 
+
+  parseInt(document.getElementsByClassName("form")[0].setAttribute("data-test", parseInt(document.getElementsByClassName("form")[0].getAttribute("data-test")) + 1)) 
+ }else{
+   alert("Вопросов больше нет")
+   console.log(otveti, "13")
+  
+   document.getElementsByClassName("form")[0].innerHTML = `<div>Ответы</div>`
+
+ for(let i = 0; i<arr.length; i++){
+   let x
+   otveti[i] == 0? x = "Нет" : x = "Да" 
+    document.getElementsByClassName("form")[0].innerHTML += `<div>${arr[i]} ----- <span>${x} </span>  </div> `
+ }
+ }
+})
+
+</script>
+	 
 	{% if not session['logged_in'] %}
   	<a href="/register">Зарегаться</a>
   	{% else %}
